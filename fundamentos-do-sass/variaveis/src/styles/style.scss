@@ -1,0 +1,35 @@
+// Para criar uma variável no Sass, basta colocar o símbolo de cifrão ($) antes do nome da variável e atribuir um valor a ela.
+$cor-primaria: blue; // Criado uma variável chamada cor-primaria e atribuído a cor azul.
+$font-primaria: monospace; // Criado uma variável chamada font-primaria e atribuído a fonte monospace.
+$gutter: 60px; // Criado uma variável chamada gutter e atribuído o valor de 60px.
+
+section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: $cor-primaria; // Está chamando a variável cor-primaria, ou seja o seu valor que é a cor azul.
+  font-family: $font-primaria; // Está chamando a variável font-primaria, ou seja o seu valor que é a fonte monospace.
+  margin-bottom: $gutter; // Está chamando a variável gutter, ou seja o seu valor que é 60px.
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.4;
+  max-width: 400px;
+  font-family: $font-primaria; // Está chamando a variável font-primaria, ou seja o seu valor que é a fonte monospace.
+}
+
+a {
+  display: block;
+  max-width: 120px;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  background: $cor-primaria; // Está chamando a variável cor-primaria, ou seja o seu valor que é a cor azul.
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: $font-primaria; // Está chamando a variável font-primaria, ou seja o seu valor que é a fonte monospace.
+}

@@ -1,0 +1,147 @@
+$gutter: 20px; // Está criando uma variável chamada $gutter com o valor de 20px.
+
+p {
+  $height: 100px; // Está criando uma variável chamada $height com o valor de 100px.
+  font-size: 10px + 10; // Está somando 10px mais 10, resultando em 20px.
+  width: 100% / 2; // Está dividindo 100% por 2, resultando em 50%.
+  gap: $gutter * 2; // Está multiplicando o valor da variável $gutter por 2, resultando em 40px.
+  height: $height + 20px; // Está somando o valor da variável $height com 20px, resultando em 120px.
+  // background: #333333 + #777777; // Está somando as cores, resultando em #aaa, pois como o valor máximo de uma cor em hexadecimal é f, quando passa de f, ele volta para 0.
+}
+
+// Está criando um mixin chamado title-large, que é um bloco de código que pode ser reutilizado em outros lugares.
+@mixin title-large {
+  font-size: 4em;
+  font-weight: bold;
+  font-family: monospace;
+  line-height: 1;
+}
+
+// Está criando um mixin chamado border-box, que é um bloco de código que ajuda com o prefixo(compatabilidade) de navegadores.
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Está criando um mixin chamado separador, que recebe um parâmetro chamado $color e outro chamado $width que como padrão tem o valor de 100px então quando for chamado o mixin, pode passar o valor que quiser para o $width, mas se não passar, o valor será 100px.
+@mixin separador($color, $width: 100px) {
+  &::after {
+    content: "";
+    display: block;
+    width: $width; // Está recebendo o valor definido no parâmetro $width.
+    height: 4px;
+    background: $color; // Está recebendo o valor definido no parâmetro $color.
+    margin: 20px 0;
+  }
+}
+
+// Está criando um mixin chamado box-shadow, que recebe um parâmetro chamado $shadow que com o spread operator(...), pode receber quantos valores quiser no shadow.
+@mixin box-shadow($shadow...) {
+  -moz-box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+  -webkit-box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+  box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+}
+
+// Está criando um mixin chamado mobile, que recebe um media query e um parâmetro chamado $content que é o código que será passado para o mixin.
+@mixin mobile {
+  @media (max-width: 480px) {
+    @content; // Está recebendo o código que está dentro do mixin mobile.
+  }
+}
+
+$cor-primaria: #48a;
+$fonte-primaria: monospace;
+$gutter: 60px;
+
+section {
+  // Chama o mixin border-box, passando o código que está dentro dele para o section.
+  @include border-box();
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Tem que seguir a estrutura do HTML, nesse caso o modal é pai do h1, p e a, assim o código fica mais organizado, fácil de entender e sem dar conflito com outros elementos que tenham o mesmo nome.
+.modal {
+  // Chama o mixin box-shadow, passando para ele 4 valores sendo 3 tipos de sombra.
+  @include box-shadow(
+    10px 10px 0 0 rgba(0, 0, 0, 0.5),
+    15px 15px 0 0 rgba(0, 0, 0, 0.5),
+    20px 20px 0 0 rgba(0, 0, 0, 0.5)
+  );
+
+  h1 {
+    color: $cor-primaria;
+    font-family: $fonte-primaria;
+    margin-bottom: $gutter;
+    // Chama o mixin title-large, passando o código que está dentro dele para o h1.
+    @include title-large();
+    // Chama o mixin separador, passando o código que está dentro dele para o h1.
+    @include separador(#84e, 200px);
+
+    // Chama o mixin mobile, passando o código definido dentro dele para o @content dentro do media query.
+    @include mobile {
+      color: pink;
+      font-size: 2em;
+    }
+  }
+
+  p {
+    // Todas as propriedades que começarem com font, podem ser agrupadas em uma única propriedade chamada font(primeiro nome que todos tem igual), passando um objeto e o segundo nome da propriedade com o valor.
+    font: {
+      family: $fonte-primaria;
+      size: 1.2em;
+      style: italic;
+    }
+    line-height: 1.4;
+    max-width: 400px;
+
+    // Chama o mixin mobile, passando o código definido dentro dele para o @content dentro do media query.
+    @include mobile {
+      font-size: 0.8em;
+    }
+  }
+
+  a {
+    display: block;
+    max-width: 120px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    background: $cor-primaria;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: $fonte-primaria;
+  }
+}
+
+// O ul é o elemento pai do li e a, assim como o li é o elemento pai do a.
+ul {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+
+  li {
+    display: inline-block;
+    list-style: none;
+
+    a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      background-color: blue;
+      color: white;
+
+      // Seleciona o seletor pai que contém a classe active, nesse caso o body e faz o caminho inverso, assim o a que está dentro do li que está dentro do body que contém a classe active, terá a cor alterada.
+      .active & {
+        color: darken(aqua, 20%);
+      }
+
+      // O & representa o elemento pai, nesse caso o a que está dentro do li, sendo assim, quando o mouse passar por cima do a, o background-color do a será alterado.
+      &:hover {
+        background-color: darken(blue, 20%);
+      }
+    }
+  }
+}

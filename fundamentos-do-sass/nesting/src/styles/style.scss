@@ -1,0 +1,69 @@
+$cor-primaria: #48a; // Criado uma variável chamada cor-primaria e atribuído o valor #48a.
+$fonte-primaria: monospace; // Criado uma variável chamada fonte-primaria e atribuído o valor monospace.
+$gutter: 60px; // Criado uma variável chamada gutter e atribuído o valor 60px.
+
+section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Tem que seguir a estrutura do HTML, nesse caso o modal é pai do h1, p e a, assim o código fica mais organizado, fácil de entender e sem dar conflito com outros elementos que tenham o mesmo nome.
+.modal {
+  h1 {
+    color: $cor-primaria;
+    font-family: $fonte-primaria;
+    margin-bottom: $gutter;
+  }
+
+  p {
+    // Todas as propriedades que começarem com font, podem ser agrupadas em uma única propriedade chamada font(primeiro nome que todos tem igual), passando um objeto e o segundo nome da propriedade com o valor.
+    font: {
+      family: $fonte-primaria;
+      size: 1.2em;
+      style: italic;
+    }
+    line-height: 1.4;
+    max-width: 400px;
+  }
+
+  a {
+    display: block;
+    max-width: 120px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    background: $cor-primaria;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: $fonte-primaria;
+  }
+}
+
+// O ul é o elemento pai do li e a, assim como o li é o elemento pai do a.
+ul {
+  text-align: center;
+
+  li {
+    display: inline-block;
+    list-style: none;
+
+    a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      background-color: blue;
+      color: white;
+
+      // Seleciona o seletor pai que contém a classe active, nesse caso o body e faz o caminho inverso, assim o a que está dentro do li que está dentro do body que contém a classe active, terá a cor alterada.
+      .active & {
+        color: darken(red, 20%);
+      }
+
+      // O & representa o elemento pai, nesse caso o a que está dentro do li, sendo assim, quando o mouse passar por cima do a, o background-color do a será alterado.
+      &:hover {
+        background-color: darken(blue, 20%);
+      }
+    }
+  }
+}

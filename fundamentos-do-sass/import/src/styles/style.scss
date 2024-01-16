@@ -1,0 +1,15 @@
+// Está importando o arquivo _colors.scss, o _ é um padrão para arquivos parciais que não serão compilados para css apenas importados. Não é necessário colocar a extensão do arquivo .scss para importar.
+// Obs.: Ele renderiza na ordem que foi importado.
+@import "colors";
+@import "buttons";
+
+div {
+  background-color: #999;
+  height: 200px;
+  width: 100px;
+
+  a {
+    color: pink;
+    background-color: blue;
+  }
+}

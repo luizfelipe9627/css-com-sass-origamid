@@ -1,0 +1,338 @@
+$list: facebook, twitter, instagram, youtube; // Está criando uma variável chamada $list com o valor de facebook, twitter, instagram e youtube.
+
+// O each é um loop que percorre uma lista, o primeiro parâmetro é o nome da variável que vai receber o valor de cada item da lista e o segundo parâmetro é o nome da lista que vai ser percorrida.
+@each $item in $list {
+  // Está criando uma classe chamada social- e concatenando com o valor da variável $item, resultando em social-facebook, social-twitter, social-instagram e social-youtube.
+  .social-#{$item} {
+    // Está recebendo o valor da variável $item que contém o nome do item da lista que está sendo percorrida no moment.
+    background-image: url("../images/#{$item}.png");
+  }
+}
+
+$i: 1; // Está criando uma variável chamada $i com o valor de 1.
+
+// Está criando um while que vai executar o código enquanto o valor da variável $i for menor ou igual a 6.
+@while $i <= 6 {
+  // Está criando uma classe chamada type- e concatenando com o valor da variável $i, resultando em type-1, type-2, type-3, type-4, type-5 e type-6. O #{} é usado para concatenar variáveis com strings.
+  .type-#{$i} {
+    // Está multiplicando o valor 10px pelo valor da variável $i, resultando em 10px, 20px, 30px, 40px, 50px e 60px.
+    font-size: 16px * $i;
+  }
+
+  $i: $i + 1; // Está incrementando o valor da variável $i em 1.
+}
+
+// Está criando um for com o contador $i que começa com o valor 1 e vai até o valor 12, ou seja, vai executar o código 12 vezes.
+@for $i from 1 through 12 {
+  // Está criando uma variável chamada $width que recebe o valor da divisão do contador $i por 12, depois multiplicado por 100%.
+  $width: $i / 12 * 100%;
+
+  // Está criando uma classe chamada porcent- e concatenando com o valor do contador $i, resultando em porcent-1, porcent-2, porcent-3, porcent-4, porcent-5, porcent-6, porcent-7, porcent-8, porcent-9, porcent-10, porcent-11 e porcent-12. Podemos concatenar variáveis com strings colocando a variável dentro do #{}.
+  .porcent-#{$i} {
+    width: $width; // Está recebendo o valor da variável $width.
+  }
+}
+
+$container: 1200; // Está criando uma variável chamada $container com o valor de 960 que é o tamanho fixo do container.
+$gutter: 20; // Está criando uma variável chamada $gutter com o valor de 20 que é o espaçamento entre as colunas.
+$coluns: 12; // Está criando uma variável chamada $coluns que contém a quantidade de colunas que o grid terá.
+
+// Está criando um for com o contador $i que começa com o valor 1 e vai até o valor 12, ou seja, vai executar o código 12 vezes.
+@for $i from 1 through $coluns {
+  // Está criando uma variável chamada $width que recebe o valor da divisão da variável $container pelo valor da variável $coluns, depois multiplicando pelo valor do contador $i e subtraindo pelo valor da variável $gutter e retornando o tamanho de cada coluna em px.
+  $width: $container / $coluns * $i - $gutter;
+
+  // Está criando uma classe chamada grid- e concatenando com o valor do contador $i, resultando em grid-1, grid-2, grid-3, grid-4, grid-5, grid-6, grid-7, grid-8, grid-9, grid-10, grid-11 e grid-12. Podemos concatenar variáveis com strings colocando a variável dentro do #{}.
+  .grid-#{$i} {
+    // Está recebendo o valor da variável $width e concatenando com o valor px.
+    width: $width + px;
+  }
+}
+
+// Está criando um for com o contador $i que começa com o valor 1 e vai até o valor 6, ou seja, vai executar o código 6 vezes.
+@for $i from 1 through 6 {
+  // Está criando um item com o nome item- e concatenando com o valor do contador $i, resultando em item-1, item-2, item-3, item-4, item-5 e item-6.
+  .item-#{$i} {
+    // Está multiplicando o valor 10px pelo valor do contador $i, resultando em 10px, 20px, 30px, 40px, 50px e 60px.
+    font-size: 10px * $i;
+  }
+}
+
+@function grid($coluns, $total: 12) {
+  // Está pegando o valor do parâmetro $coluns e dividindo pelo valor do parâmetro $total, depois multiplicando por 150px e arredondando para cima, retornando o valor da conversão de colunas para px.
+  @return round(($coluns / $total) * 150px);
+}
+
+// Criado uma função chamada em, que recebe dois parâmetros, o primeiro é o px e o segundo é o context que tem o valor padrão de 16. Essa função responsável por converter px para em.
+@function em($px, $context: 16) {
+  @return ($px / $context) * 1em; // Está pegando o valor do parâmetro $px e dividindo pelo valor do parâmetro $context, depois multiplicando por 1em, resultando na conversão de px para em.
+}
+
+body section:nth-child(4) {
+  // Está criando uma variável chamada $width que recebe o valor da função grid, passando o valor 30 para o parâmetro $coluns, resultando em 375px.
+  $width: grid(30);
+  width: $width; // Está recebendo o valor da variável $width.
+
+  // Se o valor da variável $width for maior que 50%, então execute o código do if;
+  @if $width > 300px {
+    // Está recebendo o valor da variável $width vezes 1.5.
+    height: $width * 1.5;
+  }
+  // Se não se o valor da variável $width for menor que 50%, então execute o código do else.
+  @else {
+    height: $width; // Está recebendo o valor da variável $width.
+  }
+}
+
+// Criado um mixin chamado device, que recebe um parâmetro chamado $type, que pode receber os valores mobile, tablet e desktop.
+@mixin device($type) {
+  // Se o valor do parâmetro $type for igual a mobile, então execute o código do if;
+  @if $type == mobile {
+    // Quando a tela tiver no máximo 300px, então executa o código dentro do media query.
+    @media (max-width: 300px) {
+      @content; // O @content é uma variável que recebe o código que está dentro do mixin device.
+    }
+  }
+  // Se não se o valor do parâmetro $type for igual a tablet, então execute o código do else if.
+  @else if $type == tablet {
+    // Quando a tela tiver no máximo 600px, então executa o código dentro do media query.
+    @media (max-width: 600px) {
+      @content; // O @content é uma variável que recebe o código que está dentro do mixin device.
+    }
+  }
+  // Se não se o valor do parâmetro $type for igual a desktop, então execute o código do else if.
+  @else if $type == desktop {
+    // Quando a tela tiver no máximo 900px, então executa o código dentro do media query.
+    @media (max-width: 900px) {
+      @content; // O @content é uma variável que recebe o código que está dentro do mixin device.
+    }
+  }
+}
+
+// Criado um mixin chamado shadow, que recebe um parâmetro chamado $type, que pode receber os valores 1, 2 e 3.
+@mixin shadow($type) {
+  // Se o valor do parâmetro $type for igual a 1, então execute o código do if;
+  @if $type == 1 {
+    box-shadow: 5px 5px 5px 0 #000;
+  }
+  // Se não se o valor do parâmetro $type for igual a 2, então execute o código do else if.
+  @else if $type == 2 {
+    box-shadow: 15px 15px 15px 0 #333;
+  }
+  // Se não se o valor do parâmetro $type for igual a 3, então execute o código do else if.
+  @else if $type == 3 {
+    box-shadow: 25px 25px 25px 0 #666;
+  }
+}
+
+// Criado um mixin chamado type-primary, que recebe um parâmetro chamado $size, que pode receber os valores large, medium e small.
+@mixin type-primary($size) {
+  font-family: monospace;
+
+  // Se o valor do parâmetro $size for igual a large, então execute o código do if;
+  @if $size == large {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  // Se não se o valor do parâmetro $size for igual a medium, então execute o código do else if.
+  @else if $size == medium {
+    font-size: 1.5em;
+    font-weight: normal;
+  }
+  // Se não se o valor do parâmetro $size for igual a small, então execute o código do else if.
+  @else if $size == small {
+    font-size: 1em;
+    font-weight: normal;
+  }
+}
+
+$tema: oceano; // Criado uma variável chamada tema e atribuído o valor oceano.
+$primary-color: black; // Criado uma variável chamada primary-color e atribuído a cor preta.
+$secondary-color: white; // Criado uma variável chamada secondary-color e atribuído a cor branca.
+
+// Se a variável tema for igual a oceano, então execute o código do if;
+@if $tema == oceano {
+  $primary-color: blue; // A variável primary-color recebe a cor azul.
+  $secondary-color: orange; // A variável secondary-color recebe a cor amarela.
+}
+// Se não se a variável tema for igual a deserto, então execute o código do else if.
+@else if $tema == deserto {
+  $primary-color: yellow; // A variável primary-color recebe a cor verde.
+  $secondary-color: purple; // A variável secondary-color recebe a cor marrom.
+}
+// Se a variável tema não for igual a oceano e nem a floresta, então execute o código do else.
+@else {
+  $primary-color: black; // A variável primary-color recebe a cor preta.
+  $secondary-color: white; // A variável secondary-color recebe a cor branca.
+}
+
+$gutter: 20px; // Está criando uma variável chamada $gutter com o valor de 20px.
+
+p {
+  $height: 200px; // Está criando uma variável chamada $height com o valor de 200px.
+
+  //font-size: 10px + 10; // Está somando 10px mais 10, resultando em 20px.
+  width: 100% / 2; // Está dividindo 100% por 2, resultando em 50%.
+  gap: $gutter * 2; // Está multiplicando o valor da variável $gutter por 2, resultando em 40px.
+  height: $height + 20px; // Está somando o valor da variável $height com 20px, resultando em 220px.
+  //background: #333333 + #777777; // Está somando as cores, resultando em #aaaaaa, pois como o valor máximo de uma cor em hexadecimal é f, quando passa de f, ele volta para 0.
+  color: $primary-color; // Está recebendo o valor da variável $primary-color.
+  background: $secondary-color; // Está recebendo o valor da variável $secondary-color.
+
+  // Está chamando o mixin type-primary, passando o valor large para o parâmetro $size, assim aplicando o estilo definido na condicional medium do mixin type-primary.
+  @include type-primary(medium);
+}
+
+// Está criando um mixin chamado title-large, que é um bloco de código que pode ser reutilizado em outros lugares.
+@mixin title-large {
+  // Está chamando a função em, passando o valor 40 para o parâmetro $px, assim convertendo o valor de 64px para em que é 4em.
+  font-size: em(64);
+  font-weight: bold;
+  font-family: monospace;
+  line-height: 1;
+}
+
+// Está criando um mixin chamado border-box, que é um bloco de código que ajuda com o prefixo(compatabilidade) de navegadores.
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Está criando um mixin chamado separador, que recebe um parâmetro chamado $color e outro chamado $width que como padrão tem o valor de 100px então quando for chamado o mixin, pode passar o valor que quiser para o $width, mas se não passar, o valor será 100px.
+@mixin separador($color, $width: 100px) {
+  &::after {
+    content: "";
+    display: block;
+    width: $width; // Está recebendo o valor definido no parâmetro $width.
+    height: 4px;
+    background: $color; // Está recebendo o valor definido no parâmetro $color.
+    margin: 20px 0;
+  }
+}
+
+// Está criando um mixin chamado box-shadow, que recebe um parâmetro chamado $shadow que com o spread operator(...), pode receber quantos valores quiser no shadow.
+@mixin box-shadow($shadow...) {
+  -moz-box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+  -webkit-box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+  box-shadow: $shadow; // Está recebendo o valor definido no parâmetro $shadow.
+}
+
+// Está criando um mixin chamado mobile, que recebe um media query e um parâmetro chamado $content que é o código que será passado para o mixin.
+@mixin mobile {
+  @media (max-width: 480px) {
+    @content; // Está recebendo o código que está dentro do mixin mobile.
+  }
+}
+
+$cor-primaria: #48a;
+$fonte-primaria: monospace;
+$gutter: 60px;
+
+section {
+  // Chama o mixin border-box, passando o código que está dentro dele para o section.
+  @include border-box();
+  margin: 0 auto;
+  width: 50%;
+
+  // Está chamando o mixin device, passando o valor tablet para o parâmetro $type, assim aplicando o estilo definido na condicional tablet do mixin device.
+  @include device(tablet) {
+    width: 70%;
+  }
+
+  // Está chamando o mixin device, passando o valor mobile para o parâmetro $type, assim aplicando o estilo definido na condicional mobile do mixin device.
+  @include device(mobile) {
+    width: 90%;
+  }
+}
+
+// Tem que seguir a estrutura do HTML, nesse caso o modal é pai do h1, p e a, assim o código fica mais organizado, fácil de entender e sem dar conflito com outros elementos que tenham o mesmo nome.
+.modal {
+  // Chama o mixin box-shadow, passando para ele 4 valores sendo 3 tipos de sombra.
+  @include box-shadow(
+    10px 10px 0 0 rgba(0, 0, 0, 0.5),
+    15px 15px 0 0 rgba(0, 0, 0, 0.5),
+    20px 20px 0 0 rgba(0, 0, 0, 0.5)
+  );
+
+  h1 {
+    color: $cor-primaria;
+    font-family: $fonte-primaria;
+    margin-bottom: $gutter;
+    // O transparentize é uma função do sass que deixa a cor mais transparente, nesse caso está deixando 70% transparente.
+    background-color: transparentize($cor-primaria, 0.7);
+
+    // Chama o mixin title-large, passando o código que está dentro dele para o h1.
+    @include title-large();
+    // Chama o mixin separador, passando o código que está dentro dele para o h1.
+    @include separador(#84e, 200px);
+
+    // Chama o mixin shadow, passando o valor 3 para o parâmetro $type, assim aplicando o estilo definido na condicional 3 do mixin shadow.
+    @include shadow(3);
+
+    // Chama o mixin mobile, passando o código definido dentro dele para o @content dentro do media query.
+    @include mobile {
+      color: pink;
+      font-size: 2em;
+    }
+  }
+
+  p {
+    // Todas as propriedades que começarem com font, podem ser agrupadas em uma única propriedade chamada font(primeiro nome que todos tem igual), passando um objeto e o segundo nome da propriedade com o valor.
+    // font: {
+    //family: $fonte-primaria;
+    //size: 1.2em;
+    //style: italic;
+    //}
+    line-height: 1.4;
+
+    // Chama o mixin mobile, passando o código definido dentro dele para o @content dentro do media query.
+    @include mobile {
+      font-size: 0.8em;
+    }
+  }
+
+  a {
+    $width: 260px; // Está criando uma variável chamada $width com o valor de 120px.
+
+    display: block;
+    // Arredonda para cima o valor da variável $width dividido por 3, resultando em 87px.
+    max-width: round($width / 3);
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    background: $cor-primaria;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: $fonte-primaria;
+  }
+}
+
+// O ul é o elemento pai do li e a, assim como o li é o elemento pai do a.
+ul {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+
+  li {
+    display: inline-block;
+    list-style: none;
+
+    a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      // O darken é uma função do sass que escurece a cor, nesse caso está escurecendo 20% da cor azul.
+      background-color: darken(blue, 20%);
+      color: white;
+
+      // O & representa o elemento pai, nesse caso o a que está dentro do li, sendo assim, quando o mouse passar por cima do elemento pai que tiver a classe active, o a que está dentro dele também receberá o estilo.
+      &:hover,
+      &.active {
+        // O lighten é uma função do sass que clareia a cor, nesse caso está clareando 20% da cor azul.
+        background-color: lighten(blue, 20%);
+      }
+    }
+  }
+}
