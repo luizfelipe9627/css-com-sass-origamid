@@ -13,8 +13,6 @@ function html() {
       // O ** significa que ele irá pegar todos os arquivos e pastas dentro da pasta templates.
       // O src é responsável por pegar os arquivos que serão utilizados no build.
       .src("./src/templates/**/*.html")
-      // O pipe é responsável por executar as funções dentro dele, nesse caso está executando o concat que é responsável por concatenar os arquivos e passando o parâmetro header.html, que é o nome do arquivo que será gerado.
-      .pipe(concat("index.html"))
       // O pipe é responsável por executar as funções dentro dele, nesse caso está executando o htmlmin que é responsável por minificar o html, passando o parâmetro collapseWhitespace como true, que é responsável por remover os espaços em branco.
       .pipe(htmlmin({ collapseWhitespace: true }))
       // O pipe é responsável por executar as funções dentro dele, nesse caso está executando o dest que é responsável por enviar os arquivos para a pasta de destino, que no caso é a pasta dist.
@@ -32,8 +30,6 @@ function styles() {
       // O ** significa que ele irá pegar todos os arquivos e pastas dentro da pasta styles.
       // O src é responsável por pegar os arquivos que serão utilizados no build.
       .src("./src/styles/**/*.scss")
-      // O pipe é usado para executar as funções colocadas dentro dele, nesse caso está executando o concat que é responsável por concatenar os arquivos e passando o parâmetro main.css, que é o nome do arquivo que será gerado.
-      .pipe(concat("main.css"))
       // O pipe é usado para executar as funções colocadas dentro dele, nesse caso está executando o sass que é responsável por compilar o sass e transformar em css e passando o parâmetro outputStyle como compressed, que é responsável por comprimir o css.
       .pipe(sass({ outputStyle: "compressed" }))
       // O pipe é usado para executar as funções colocadas dentro dele, nesse caso está executando o autoprefixer que é responsável por adicionar os prefixos necessários para o css e passando o parâmetro browsers como last 2 versions, que é responsável por adicionar os prefixos para as duas últimas versões dos navegadores e o cascade como false, que é responsável por remover a indentação do css.
