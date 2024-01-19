@@ -1,0 +1,53 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box; // O box-sizing: border-box; faz com que o padding e a borda do elemento não sejam contabilizados no cálculo do width e height.
+}
+
+// Está criando as variáveis chamadas $columns, $gutter, $large-device, $medium-device e $small-device.
+$columns: 12;
+$gutter: 20px;
+$large-device: 1200px;
+$medium-device: 760px;
+$small-device: 480px;
+
+// Está criando um mixin(que é um bloco de código que pode ser reutilizado em outros lugares) chamado device que recebe um parâmetro chamado $type.
+@mixin device($type) {
+  // Se o $type for igual a large, então vai executar o código abaixo.
+  @if $type == large {
+    // Está criando uma media query que vai ser executada quando a largura da tela for maior ou igual a 1200px.
+    @media (min-width: $large-device) {
+      @content; // O @content vai fazer com que o conteúdo que estiver dentro do mixin seja colocado no lugar do @content.
+    }
+  }
+  // Se não, se o $type for igual a medium, então vai executar o código abaixo.
+  @else if $type == medium {
+    // Está criando uma media query que vai ser executada quando a largura da tela for maior ou igual a 760px e menor ou igual a 1199px.
+    @media (min-width: $medium-device) and (max-width: #{$large-device - 1}) {
+      @content; // O @content vai fazer com que o conteúdo que estiver dentro do mixin seja colocado no lugar do @content.
+    }
+  }
+  // Se não, se o $type for igual a small, então vai executar o código abaixo.
+  @else if $type == small {
+    // Está criando uma media query que vai ser executada quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
+    @media (max-width: #{$medium-device - 1}) {
+      @content; // O @content vai fazer com que o conteúdo que estiver dentro do mixin seja colocado no lugar do @content.
+    }
+  }
+}
+
+// Criado uma função chamada grid que recebe dois parâmetros chamados $col, responsável por receber o número de colunas que o elemento vai ocupar, e $offset, responsável por receber o número de colunas que o elemento vai ficar afastado da esquerda.
+@function grid($col, $offset: false) {
+  $width: $col / $columns * 100%; 
+}
+
+p {
+  color: blue;
+
+  @include device(large) {
+    color: red;
+  }
+  @include device(medium) {
+    color: green;
+  }
+}
