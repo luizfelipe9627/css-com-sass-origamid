@@ -12,10 +12,6 @@ img {
   max-width: 100%;
 }
 
-.logo {
-  width: max-content;
-}
-
 p {
   // O include está chamando o mixin type-1 responsável por definir o tipo-1 de tamanho da fonte e a fonte.
   @include type-1(18);
