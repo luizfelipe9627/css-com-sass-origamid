@@ -68,7 +68,7 @@ $small-device: 480px;
   min-height: 1px;
   margin-left: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-left.
   margin-right: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-right.
-  // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
+  // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     width: 100%;
     margin-left: 0;
@@ -94,7 +94,7 @@ $small-device: 480px;
   }
 }
 
-// Está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
+// O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
 @include device(small) {
   // O % é um seletor de placeholder, que é um seletor que não é compilado para o css, mas que pode ser usado para herdar propriedades e ai sim ser compilado para o css.
   %offset {
@@ -102,33 +102,20 @@ $small-device: 480px;
   }
 }
 
-/*
-// Está criando um mixin chamado clearfix, responsável por fazer com que os elementos que estão utilizando float sejam limpos.
-@mixin clearfix {
-  &::after,
-  &::before {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-*/
-
 @mixin container {
   max-width: $large-device; // Está pegando o valor da variável $large-device e colocando na propriedade max-width.
   margin: 0 auto;
-  position: relative;
+  position: relative; // Está colocando a propriedade position com o valor relative, para que quando for usar o position absolute dentro do container, o position absolute fique relativo ao container.
   // Está chamando o mixin device e passando como parâmetro a palavra large, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 1200px.
   @include device(medium) {
     max-width: $medium-device; // Está pegando o valor da variável $medium-device e colocando na propriedade max-width.
   }
-  // Está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
+  // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     max-width: $small-device; // Está pegando o valor da variável $small-device e colocando na propriedade max-width.
     padding-left: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-left.
     padding-right: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-right.
   }
-  //@include clearfix; // Está chamando o mixin clearfix, responsável por fazer com que os elementos que estão utilizando float sejam limpos.
 }
 
 .container {
@@ -140,12 +127,11 @@ $small-device: 480px;
   margin-left: -$gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado negativado na propriedade margin-left.
   margin-right: -$gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado negativado na propriedade margin-right.
 
-  // Está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
+  // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     margin-left: 0;
     margin-right: 0;
   }
-  //@include clearfix; // Está chamando o mixin clearfix, responsável por fazer com que os elementos que estão utilizando float sejam limpos.
 }
 
 .row {
