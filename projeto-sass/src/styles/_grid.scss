@@ -68,23 +68,20 @@ $small-device: 480px;
   min-height: 1px;
   margin-left: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-left.
   margin-right: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-right.
-
+  // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
   @include device(small) {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    display: flex; // Usando flexbox em telas pequenas
-    flex-wrap: wrap; // Permitindo que os itens se movam para a próxima linha quando não há espaço suficiente
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
-}
-
-div {
-  width: grid(6, offset);
 }
 
 // Para cada elemento que tiver a classe que começa com grid-, vai passar as propriedades que estão dentro do mixin grid-structure.
 [class^="grid-"] {
-  @include grid-structure;
+  @include grid-structure; // Está chamando o mixin grid-structure, fazendo com que as propriedades que estão dentro do mixin sejam colocadas no lugar do @include grid-structure.
 }
 
 // O for está recebendo um parâmetro/variável chamado $i, que vai começar com o valor 1 e vai até o valor da variável $columns, que é 12, então o for vai executar 12 vezes.
@@ -121,12 +118,10 @@ div {
   max-width: $large-device; // Está pegando o valor da variável $large-device e colocando na propriedade max-width.
   margin: 0 auto;
   position: relative;
-
   // Está chamando o mixin device e passando como parâmetro a palavra large, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 1200px.
   @include device(medium) {
     max-width: $medium-device; // Está pegando o valor da variável $medium-device e colocando na propriedade max-width.
   }
-
   // Está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for menor ou igual a 759px.
   @include device(small) {
     max-width: $small-device; // Está pegando o valor da variável $small-device e colocando na propriedade max-width.
@@ -155,11 +150,4 @@ div {
 
 .row {
   @include row; // Está chamando o mixin row, fazendo com que as propriedades que estão dentro do mixin sejam colocadas no lugar do @include row.
-}
-
-div {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  min-height: 50px !important;
-  margin-bottom: 20px;
 }
