@@ -31,7 +31,6 @@
       border-color: $medium-beige; // Está colocando o valor da variável $medium-beige como cor da borda.
     }
   }
-
   textarea {
     height: 120px;
   }
@@ -63,7 +62,7 @@ input[type="button"] {
   margin: 2em 0 3em 0;
   // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 1200px.
   @include device(large) {
-    display: flex;
+    display: block;
     flex-direction: column;
     color: $dark-beige; // Está colocando o valor da variável $dark-beige como cor do texto.
     text-align: right;

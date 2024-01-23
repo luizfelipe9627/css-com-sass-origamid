@@ -1,7 +1,7 @@
 // Está criando uma função chamada em, que recebe dois parâmetros, o primeiro é o $px, que é o valor em pixels que vai ser convertido para em e o segundo é o $context, que é o valor em pixels que vai ser usado como base para a conversão.
 @function em($px, $context: 16px) {
-  // Está retornando o valor da variável $px dividido pelo valor da variável $context e multiplicado por 1em.
-  @return ($px / $context) * 1em;
+  // Faz um cálculo dividindo o valor da variável $px pelo valor da variável $context e multiplicando o resultado por 1em e retorna o resultado.
+  @return calc($px / $context) * 1em;
 }
 
 // Está criando um mixin chamado type-1, que recebe um parâmetro chamado $size, esse mixin vai ser responsável por definir a fonte, o tamanho da fonte e o tamanho da linha.

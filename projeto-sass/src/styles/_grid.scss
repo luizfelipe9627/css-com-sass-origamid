@@ -38,16 +38,16 @@ $small-device: 480px;
 
 // Criado uma função chamada grid que recebe dois parâmetros chamados $col, responsável por receber o número de colunas que o elemento vai ocupar, e $offset, responsável por receber o número de colunas que o elemento vai ficar afastado da esquerda.
 @function grid($col, $offset: false) {
-  $width: $col / $columns * 100%; // Está pegando a quantidade de colunas que o elemento vai ocupar e dividindo pela quantidade total de colunas e multiplicando por 100% para saber a porcentagem que o elemento vai ocupar, armazenando o resultado na variável $width.
+  $width: calc($col / $columns) * 100%; // Faz um cálculo dividindo a quantidade de colunas que o elemento vai ocupar pela quantidade total de colunas e multiplicando o resultado por 100% para saber a porcentagem que o elemento vai ocupar, armazenando o resultado na variável $width.
 
-  // Está somando o valor da variável $width com o valor da variável $gutter para que o elemento não fique colado na esquerda, e armazena o resultado na variável $result.
+  // Faz um cálculo subtraindo o valor da variável width pelo valor da variável $gutter, armazenando o resultado na variável $result. O #{} serve para interpolar(pegar o valor de uma variável e colocar dentro de uma string) o valor da variável dentro da string.
   $result: calc(#{$width} - #{$gutter});
 
   // Se o $offset for igual a offset, então vai executar o código dentro do if.
   @if $offset == offset {
-    // Está dividindo o valor da variável $gutter por 2 e armazenando o resultado na variável $gutter, sendo o resultado 10px.
-    $gutter: $gutter / 2;
-    // Está somando o valor da variável $result com o valor da variável $gutter para que o elemento fique afastado da esquerda, e armazena o resultado na variável $result.
+    // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado na variável $gutter.
+    $gutter: calc($gutter / 2);
+    // Faz um cálculo somando o valor da variável width pelo valor da variável $gutter, armazenando o resultado na variável $result. O #{} serve para interpolar(pegar o valor de uma variável e colocar dentro de uma string) o valor da variável dentro da string.
     $result: calc(#{$width} + #{$gutter});
   }
   @return $result; // Está retornando o valor da variável $result, que é a porcentagem que o elemento vai ocupar.
@@ -66,8 +66,10 @@ $small-device: 480px;
   display: inline-block;
   //float: left;
   min-height: 1px;
-  margin-left: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-left.
-  margin-right: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-right.
+  // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-left.
+  margin-left: calc($gutter / 2);
+  // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade margin-right.
+  margin-right: calc($gutter / 2);
   // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     width: 100%;
@@ -113,8 +115,10 @@ $small-device: 480px;
   // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     max-width: $small-device; // Está pegando o valor da variável $small-device e colocando na propriedade max-width.
-    padding-left: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-left.
-    padding-right: $gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-right.
+    // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-left.
+    padding-left: calc($gutter / 2);
+    // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado na propriedade padding-right.
+    padding-right: calc($gutter / 2);
   }
 }
 
@@ -124,9 +128,10 @@ $small-device: 480px;
 
 @mixin row {
   position: relative;
-  margin-left: -$gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado negativado na propriedade margin-left.
-  margin-right: -$gutter / 2; // Está dividindo o valor da variável $gutter por 2 e colocando o resultado negativado na propriedade margin-right.
-
+  // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado negativado(para negativar um valor é so subtratir 1 e multiplicar pelo valor) na propriedade margin-left.
+  margin-left: calc(-1 * $gutter / 2);
+  // Faz um cálculo dividindo o valor da variável $gutter por 2 e colocando o resultado negativado(para negativar um valor é so subtratir 1 e multiplicar pelo valor) na propriedade margin-right.
+  margin-right: calc(-1 * $gutter / 2);
   // O include está chamando o mixin device e passando como parâmetro a palavra small, que faz com que o código dentro do mixin seja executado quando a largura da tela for maior ou igual a 480px e menor ou igual a 759px.
   @include device(small) {
     margin-left: 0;
